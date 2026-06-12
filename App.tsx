@@ -172,7 +172,7 @@ export default function App() {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{isUpdating ? "Editar Tarefa" : "Nova Tarefa"}</Text>
             
-            <Input style={styles.modalInput}>
+            <Input style={{ marginBottom: 16 }}>
               <InputField
                 placeholder="Nome da tarefa..."
                 value={text}
