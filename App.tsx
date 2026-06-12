@@ -1,3 +1,4 @@
+import "./global.css";
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Platform, StatusBar as RNStatusBar, Image, Pressable, ActivityIndicator, Modal, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -68,7 +69,10 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      className="flex-1 bg-gray-100"
+      style={{ paddingTop: Platform.OS === 'android' ? RNStatusBar.currentHeight : 0 }}
+    >
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           {logoError ? (
@@ -270,11 +274,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: globalStyles.backgroundColor,
-    paddingTop: Platform.OS === 'android' ? RNStatusBar.currentHeight : 0,
-  },
   container: {
     flex: 1,
     maxWidth: 600,
