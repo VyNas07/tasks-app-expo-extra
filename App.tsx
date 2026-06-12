@@ -1,6 +1,8 @@
 import "./global.css";
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Platform, StatusBar as RNStatusBar, Image, Pressable, ActivityIndicator, Modal, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Platform, StatusBar as RNStatusBar, Image, Pressable, ActivityIndicator, Modal, Button } from 'react-native';
+import { GluestackUIProvider, Input, InputField, Button as GlueButton, ButtonText } from '@gluestack-ui/themed';
+import { config } from '@gluestack-ui/config';
 import { StatusBar } from 'expo-status-bar';
 import Checkbox from 'expo-checkbox';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -69,6 +71,7 @@ export default function App() {
   };
 
   return (
+    <GluestackUIProvider config={config}>
     <SafeAreaView
       className="flex-1 bg-gray-100"
       style={{ paddingTop: Platform.OS === 'android' ? RNStatusBar.currentHeight : 0 }}
@@ -169,13 +172,14 @@ export default function App() {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{isUpdating ? "Editar Tarefa" : "Nova Tarefa"}</Text>
             
-            <TextInput
-              style={styles.modalInput}
-              placeholder="Nome da tarefa..."
-              value={text}
-              maxLength={50}
-              onChangeText={setText}
-            />
+            <Input style={styles.modalInput}>
+              <InputField
+                placeholder="Nome da tarefa..."
+                value={text}
+                maxLength={50}
+                onChangeText={setText}
+              />
+            </Input>
 
             <View style={styles.fieldRow}>
               <Text style={styles.fieldLabel}>Data limite:</Text>
@@ -248,13 +252,12 @@ export default function App() {
               <TouchableOpacity style={styles.modalCancelBtn} onPress={resetForm}>
                 <Text style={styles.modalCancelText}>Cancelar</Text>
               </TouchableOpacity>
-              <TouchableOpacity 
-                style={[styles.modalSaveBtn, !text.trim() && styles.modalSaveBtnDisabled]} 
+              <GlueButton
                 onPress={handleSave}
-                disabled={!text.trim()}
+                isDisabled={!text.trim()}
               >
-                <Text style={styles.modalSaveText}>Salvar</Text>
-              </TouchableOpacity>
+                <ButtonText>Salvar</ButtonText>
+              </GlueButton>
             </View>
           </View>
         </View>
@@ -270,6 +273,7 @@ export default function App() {
 
       <StatusBar style="auto" />
     </SafeAreaView>
+    </GluestackUIProvider>
   );
 }
 
